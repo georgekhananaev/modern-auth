@@ -1,7 +1,6 @@
 "use client";
 
 import React, {createContext, useContext, useState} from "react";
-import {useTheme} from "@/context/theme/useTheme";
 
 // Create context for Tabs state
 type TabsContextType = {
@@ -59,7 +58,6 @@ interface TabsTriggerProps {
 
 export function TabsTrigger({value, children, className = "", disabled = false}: TabsTriggerProps) {
     const {value: selectedValue, onChange} = useTabs();
-    const {isDarkMode} = useTheme();
     const isSelected = selectedValue === value;
 
     return (
