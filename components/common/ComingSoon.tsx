@@ -7,8 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-// GitHub repository URL from env, with a fallback
-const GITHUB_REPO_URL = process.env.NEXT_PUBLIC_GITHUB_REPO_URL || "https://github.com/georgekhananaev/modern-auth";
+const GITHUB_REPO_URL = "https://github.com/georgekhananaev/modern-auth";
 
 interface ComingSoonProps {
   title?: string;
