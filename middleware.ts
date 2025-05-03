@@ -33,7 +33,7 @@ export async function middleware(request: NextRequest) {
       'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
       'Strict-Transport-Security': 'max-age=63072000; includeSubDomains; preload',
       'Content-Security-Policy': process.env.NODE_ENV === 'production' 
-        ? "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'"
+        ? "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' api.github.com"
         : "default-src 'self' *; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: *; font-src 'self' data: *; connect-src 'self' *"
     }
   });

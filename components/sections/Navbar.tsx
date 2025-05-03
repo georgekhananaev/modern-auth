@@ -678,9 +678,9 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                                         Profile
                                     </ThemedLink>
                                     <ThemedLink
-                                        href="/settings"
-                                        className="flex w-full items-center px-3 py-2 text-sm rounded-md transition-all hover:translate-x-1 hover:bg-primary/5"
-                                        onClick={handleNavigation}
+                                        href="#"
+                                        className="flex w-full items-center px-3 py-2 text-sm rounded-md transition-all opacity-50 pointer-events-none"
+                                        onClick={(e) => e.preventDefault()}
                                     >
                                         <Icon name="Settings" size={16} className="mr-2" />
                                         Settings
