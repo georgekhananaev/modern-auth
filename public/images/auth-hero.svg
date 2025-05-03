@@ -1,0 +1,8 @@
+<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="500" height="500" fill="white"/>
+  <circle cx="250" cy="200" r="100" fill="#0066FF" fill-opacity="0.1"/>
+  <rect x="200" y="150" width="100" height="150" rx="10" fill="#0066FF"/>
+  <rect x="225" y="220" width="50" height="50" rx="25" fill="white"/>
+  <rect x="242" y="175" width="16" height="30" rx="8" fill="white"/>
+  <path d="M250 350C180.964 350 125 294.036 125 225C125 155.964 180.964 100 250 100C319.036 100 375 155.964 375 225C375 294.036 319.036 350 250 350ZM250 120C192.056 120 145 167.056 145 225C145 282.944 192.056 330 250 330C307.944 330 355 282.944 355 225C355 167.056 307.944 120 250 120Z" fill="#0066FF" fill-opacity="0.5"/>
+</svg>

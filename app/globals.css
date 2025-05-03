@@ -1,0 +1,437 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #4F46E5;
+  --color-primary-hover: #4338CA;
+}
+
+/* Global theme styles */
+:root {
+  /* Primary colors - Modern indigo instead of blue */
+  --color-primary: #4F46E5;
+  --color-primary-hover: #4338CA;
+  --color-primary-light: rgba(79, 70, 229, 0.1);
+  --color-primary-light-hover: rgba(79, 70, 229, 0.2);
+  --color-secondary: #EC4899;
+  --color-secondary-hover: #DB2777;
+  --color-secondary-light: rgba(236, 72, 153, 0.1);
+  
+  /* Base colors - Subtle off-white for background */
+  --background-color: #F9FAFB;
+  --text-color: #111827;
+  --border-color: #E5E7EB;
+  --card-bg: #FFFFFF;
+  --input-bg: #FFFFFF;
+  
+  /* Text colors - Better contrast */
+  --text-muted: #4B5563;
+  --text-error: #EF4444;
+  --hover-light: rgba(0, 0, 0, 0.04);
+  
+  /* Accent colors */
+  --accent-success: #10B981;
+  --accent-warning: #F59E0B;
+  --accent-info: #3B82F6;
+  
+  /* Pre element colors */
+  --primary-light-bg: #F3F4F6;
+  --primary-light-text: #111827; 
+  
+  /* Dropdown variables */
+  --dropdown-bg: #FFFFFF;
+  --dropdown-hover: rgba(79, 70, 229, 0.08);
+  --dropdown-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  /* Button, link and icon variables */
+  --icon-color: #6B7280;
+  --link-color: #4F46E5;
+  --ghost-hover: rgba(79, 70, 229, 0.05);
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.dark {
+  /* Primary colors - Same indigo but brighter in dark mode */
+  --color-primary: #6366F1;
+  --color-primary-hover: #818CF8;
+  --color-primary-light: rgba(99, 102, 241, 0.2);
+  --color-primary-light-hover: rgba(99, 102, 241, 0.3);
+  --color-secondary: #F472B6;
+  --color-secondary-hover: #F9A8D4;
+  --color-secondary-light: rgba(244, 114, 182, 0.2);
+  
+  /* Base colors - Deeper but not too dark background */
+  --background-color: #111827;
+  --text-color: #F9FAFB;
+  --border-color: #374151;
+  --card-bg: #1F2937;
+  --input-bg: #1F2937;
+  
+  /* Text colors - Improved readability */
+  --text-muted: #9CA3AF;
+  --text-error: #F87171;
+  --hover-light: rgba(255, 255, 255, 0.1);
+  
+  /* Accent colors */
+  --accent-success: #34D399;
+  --accent-warning: #FBBF24;
+  --accent-info: #60A5FA;
+  
+  /* Pre element colors */
+  --primary-dark-bg: #1F2937;
+  --primary-dark-text: #F9FAFB;
+  
+  /* Dropdown variables */
+  --dropdown-bg: #1F2937;
+  --dropdown-hover: rgba(99, 102, 241, 0.2);
+  --dropdown-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+  
+  /* Button, link and icon variables */
+  --icon-color: #9CA3AF;
+  --link-color: #6366F1;
+  --ghost-hover: rgba(99, 102, 241, 0.15);
+  
+  /* Shadows - Adjusted for dark mode */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+}
+
+/* Base styles */
+:root {
+  color-scheme: var(--color-scheme, light);
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+/* Apply theme colors to all elements by default */
+* {
+  color: inherit;
+}
+
+/* Modern UI base styles */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+p {
+  opacity: 0.9;
+}
+
+/* Make sure buttons maintain proper contrast */
+button {
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Apply theme to common elements */
+input, select, textarea {
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+  transition: all 0.2s ease;
+}
+
+/* Input styles - More refined with subtle shadow */
+.input {
+  display: block;
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+  transform: translateY(-1px);
+}
+
+.input:hover:not(:disabled) {
+  border-color: rgba(79, 70, 229, 0.5);
+}
+
+.input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.dark .input {
+  background-color: var(--input-bg);
+  border-color: var(--border-color);
+}
+
+/* Button styles - Modern with subtle effects */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: none;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: white !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: white !important;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-secondary-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+/* Ensure white text on primary backgrounds */
+.bg-primary, .bg-primary-hover, 
+.bg-secondary, .bg-secondary-hover,
+.bg-gradient-to-r.from-primary, 
+.hover\:bg-primary-hover:hover, 
+.hover\:bg-primary:hover {
+  color: white !important;
+}
+
+/* Logo specific styles to ensure white text */
+[style*="--color-primary"] > span {
+  color: white !important;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.btn-outline:hover {
+  background-color: var(--hover-light);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--text-color);
+  box-shadow: none;
+}
+
+.btn-ghost:hover {
+  background-color: var(--ghost-hover);
+  color: var(--color-primary);
+}
+
+.btn-link {
+  background-color: transparent;
+  color: var(--link-color);
+  box-shadow: none;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.btn-link:hover {
+  text-decoration: none;
+}
+
+.btn-destructive {
+  background-color: var(--text-error);
+  color: white;
+}
+
+.btn-destructive:hover {
+  opacity: 0.9;
+  box-shadow: var(--shadow-md);
+}
+
+/* Apply theme to primary layout components with subtle shadows */
+.navbar {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(10px);
+}
+
+.footer {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-top: 1px solid var(--border-color);
+}
+
+.card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.container, .sidebar, .modal {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+/* Animation utilities */
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.animate-fadeOut {
+  animation: fadeOut 0.2s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Section styling */
+.section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+/* Page heading styles */
+.page-heading {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+@media (min-width: 768px) {
+  .page-heading {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+}
+
+/* Dropdown styles with shadows and refined hover states */
+[data-dropdown-content] {
+  background-color: var(--dropdown-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  box-shadow: var(--dropdown-shadow);
+  overflow: hidden;
+}
+
+[data-dropdown-content] a,
+[data-dropdown-content] button {
+  transition: all 0.15s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  margin: 0.25rem;
+}
+
+[data-dropdown-content] a:hover,
+[data-dropdown-content] button:hover {
+  background-color: var(--dropdown-hover);
+  transform: translateX(2px);
+}
+
+[data-dropdown-content] a.active,
+[data-dropdown-content] button.active {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  font-weight: 500;
+}

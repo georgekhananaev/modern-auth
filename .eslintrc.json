@@ -1,0 +1,21 @@
+{
+  "extends": ["next/core-web-vitals", "eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "ignorePatterns": [".next/**/*", "node_modules/**/*", "out/**/*", "build/**/*"],
+  "rules": {
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+    "react/no-unescaped-entities": "off",
+    "react/jsx-no-comment-textnodes": "error",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "import/no-anonymous-default-export": "warn",
+    "no-console": ["warn", { "allow": ["warn", "error"] }]
+  }
+}
