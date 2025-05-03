@@ -493,15 +493,14 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
       rounded-md transition-all duration-200
       ${isActive ? 'text-primary font-medium' : ''}
       ${isMobile ? 'hover:bg-primary/5' : level === 1 ? 'hover:bg-primary/5' : 'hover:bg-primary/5 hover:translate-x-1'}
-      ${isMobile && level > 1 ? `pl-[${4 + (level-1) * 3}px]` : ''}
-      // ${isMobile && level > 1 ? 'border-l-2 border-primary/10 ml-3' : ''}
+      ${isMobile && level > 1 ? `pl-${4 + (level-1) * 3}` : ''}
       w-full
     `;
 
         // Menu item with children (dropdown)
         if (hasChildren) {
             return (
-                <div key={menuPath} className="relative">
+                <div key={menuPath} className={`relative ${isMobile ? 'w-full' : ''}`}>
                     {/* Menu toggle button */}
                     <button
                         id={`toggle-${menuPath}`}
@@ -547,22 +546,22 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                                 exit="exit"
                                 variants={dropdownVariants}
                                 className={`
-                  z-50 min-w-[220px] max-w-[300px]
+                  z-50 
                   rounded-lg shadow-lg border text-sm
-                  ${isMobile ? 'mt-1 ml-4 space-y-1' : 'absolute'}
+                  ${isMobile ? 'w-full mt-1' : 'min-w-[220px] max-w-[300px] absolute'}
                 `}
                                 style={{
                                     ...getDropdownPosition(menuPath, isMobile),
-                                    backgroundColor: isDarkMode ? 'rgb(31, 41, 55)' : 'white', 
+                                    backgroundColor: isDarkMode ? 'rgb(31, 41, 55)' : 'white',
                                     borderColor: isDarkMode ? 'rgb(75, 85, 99)' : 'rgb(229, 231, 235)'
                                 }}
                             >
                                 {/* Menu header with description */}
                                 {item.description && (
-                                    <div className="px-3 py-1.5 border-b" 
+                                    <div className="px-3 py-1.5 border-b"
                                          style={{ borderColor: isDarkMode ? 'rgb(75, 85, 99)' : 'rgb(229, 231, 235)' }}>
                                         <h3 className="text-xs font-medium">{item.title}</h3>
-                                        <p className="text-xs mt-0.5 text-[11px]" 
+                                        <p className="text-xs mt-0.5 text-[11px]"
                                            style={{ color: isDarkMode ? 'rgb(156, 163, 175)' : 'rgb(107, 114, 128)' }}>
                                             {item.description}
                                         </p>
@@ -570,7 +569,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                                 )}
 
                                 {/* Menu items */}
-                                <div className="p-1.5 space-y-0.5" role="menu" aria-label="Dropdown menu">
+                                <div className="p-1.5 space-y-0.5 w-full" role="menu" aria-label="Dropdown menu">
                                     {item.children!.map(child => renderMenuItem(child, menuPath, isMobile))}
                                 </div>
                             </motion.div>
@@ -617,19 +616,24 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
 
         if (session) {
             return (
-                <div className={`relative ${isMobile ? "" : "ml-4"}`}>
+                <div className={`relative ${isMobile ? "w-full" : "ml-4"}`}>
                     <button
                         id={`toggle-${profileMenuPath}`}
                         onClick={(e) => toggleMenu(profileMenuPath, e)}
                         aria-expanded={isProfileMenuOpen}
                         aria-controls={`menu-${profileMenuPath}`}
                         aria-haspopup="menu"
-                        className="flex items-center p-1.5 rounded-full hover:bg-primary/10 transition-all hover:scale-105"
+                        className={`flex items-center p-1.5 rounded-full hover:bg-primary/10 transition-all hover:scale-105 ${isMobile ? "w-full justify-between" : ""}`}
                     >
-                        <div className="relative flex h-9 w-9 shrink-0 overflow-hidden rounded-full shadow-sm">
-                            <div className="flex h-full w-full items-center justify-center rounded-full bg-primary text-sm font-medium text-white">
-                                {session.user?.name ? session.user.name.charAt(0).toUpperCase() : "U"}
+                        <div className="flex items-center">
+                            <div className="relative flex h-9 w-9 shrink-0 overflow-hidden rounded-full shadow-sm">
+                                <div className="flex h-full w-full items-center justify-center rounded-full bg-primary text-sm font-medium text-white">
+                                    {session.user?.name ? session.user.name.charAt(0).toUpperCase() : "U"}
+                                </div>
                             </div>
+                            {isMobile && (
+                                <span className="ml-3">{session.user?.name || "User"}</span>
+                            )}
                         </div>
                         <Icon
                             name="ChevronDown"
@@ -656,15 +660,15 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                                     borderColor: isDarkMode ? 'rgb(75, 85, 99)' : 'rgb(229, 231, 235)'
                                 }}
                             >
-                                <div className="py-2 px-3 border-b" 
+                                <div className="py-2 px-3 border-b"
                                      style={{ borderColor: isDarkMode ? 'rgb(75, 85, 99)' : 'rgb(229, 231, 235)' }}>
                                     <p className="text-xs font-medium">{session.user?.name || "User"}</p>
-                                    <p className="text-xs truncate mt-0.5 text-[11px]" 
+                                    <p className="text-xs truncate mt-0.5 text-[11px]"
                                        style={{ color: isDarkMode ? 'rgb(156, 163, 175)' : 'rgb(107, 114, 128)' }}>
                                         {session.user?.email || ""}
                                     </p>
                                 </div>
-                                <div className="p-1.5" role="menu" aria-label="User menu">
+                                <div className="p-1.5 w-full" role="menu" aria-label="User menu">
                                     <ThemedLink
                                         href="/profile"
                                         className="flex w-full items-center px-3 py-2 text-sm rounded-md transition-all hover:translate-x-1 hover:bg-primary/5"
@@ -687,13 +691,13 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                                             signOut();
                                         }}
                                         className="flex w-full items-center px-4 py-2.5 text-sm rounded-md transition-all hover:translate-x-1"
-                                        style={{ 
+                                        style={{
                                             color: isDarkMode ? 'rgb(248, 113, 113)' : 'rgb(239, 68, 68)',
-                                            backgroundColor: 'transparent' 
+                                            backgroundColor: 'transparent'
                                         }}
                                         onMouseOver={(e) => {
-                                            e.currentTarget.style.backgroundColor = isDarkMode 
-                                                ? 'rgba(239, 68, 68, 0.1)' 
+                                            e.currentTarget.style.backgroundColor = isDarkMode
+                                                ? 'rgba(239, 68, 68, 0.1)'
                                                 : 'rgba(254, 226, 226, 1)';
                                         }}
                                         onMouseOut={(e) => {
@@ -715,7 +719,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
 
         // Not logged in - render auth buttons
         return (
-            <div className={isMobile ? "space-y-3 mt-4" : "ml-4 flex items-center space-x-3"}>
+            <div className={isMobile ? "space-y-3 mt-4 w-full" : "ml-4 flex items-center space-x-3"}>
                 <Button
                     variant="ghost"
                     size="sm"
@@ -765,7 +769,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
         <nav
             ref={navRef}
             className={`sticky top-0 z-50 backdrop-blur-md navbar border-b shadow-sm ${className}`}
-            style={{ 
+            style={{
                 backgroundColor: isDarkMode ? 'rgba(17, 24, 39, 0.9)' : 'rgba(255, 255, 255, 0.9)',
                 color: isDarkMode ? 'white' : 'inherit'
             }}
@@ -797,8 +801,8 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                         </div>
 
                         {/* Right side items */}
-                        <div className="flex items-center pl-6 ml-6 border-l" 
-                            style={{ borderColor: isDarkMode ? 'rgba(75, 85, 99, 1)' : 'rgba(229, 231, 235, 1)' }}>
+                        <div className="flex items-center pl-6 ml-6 border-l"
+                             style={{ borderColor: isDarkMode ? 'rgba(75, 85, 99, 1)' : 'rgba(229, 231, 235, 1)' }}>
                             {renderThemeToggle()}
                             {renderUserSection()}
                         </div>
@@ -832,16 +836,16 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="lg:hidden overflow-y-auto max-h-[calc(100vh-4rem)] border-b shadow-lg"
-                        style={{ 
+                        className="lg:hidden overflow-y-auto max-h-[calc(100vh-4rem)] border-b shadow-lg w-full"
+                        style={{
                             backgroundColor: isDarkMode ? 'rgb(17, 24, 39)' : 'white',
                             color: isDarkMode ? 'white' : 'rgb(17, 24, 39)',
                             borderColor: isDarkMode ? 'rgba(75, 85, 99, 1)' : 'rgba(229, 231, 235, 1)'
                         }}
                     >
-                        <div className="container mx-auto px-4 py-4 space-y-3" role="menu" aria-label="Mobile navigation menu">
+                        <div className="container mx-auto px-4 py-4 space-y-3 w-full" role="menu" aria-label="Mobile navigation menu">
                             {/* Search bar for mobile */}
-                            <div className="relative">
+                            <div className="relative w-full">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <Icon name="Search" size={16} className="text-gray-400" />
                                 </div>
@@ -860,32 +864,32 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                             </div>
 
                             {/* Mobile navigation links */}
-                            <div className="mt-2 space-y-1">
+                            <div className="mt-2 space-y-1 w-full">
                                 {navLinks.map(link => renderMenuItem(link, "", true))}
                             </div>
 
                             {/* Mobile user section */}
-                            <div className="mt-6 pt-6 pb-4 border-t" 
-                                style={{ borderColor: isDarkMode ? 'rgba(75, 85, 99, 1)' : 'rgba(229, 231, 235, 1)' }}>
+                            <div className="mt-6 pt-6 pb-4 border-t w-full"
+                                 style={{ borderColor: isDarkMode ? 'rgba(75, 85, 99, 1)' : 'rgba(229, 231, 235, 1)' }}>
                                 {session ? (
-                                    <div className="px-4 py-2">
-                                        <div className="flex items-center">
+                                    <div className="px-4 py-2 w-full">
+                                        <div className="flex items-center w-full">
                                             <div className="flex-shrink-0">
                                                 <div className="flex h-12 w-12 items-center justify-center rounded-full text-white shadow-md bg-primary">
-                          <span className="text-base font-medium">
-                            {session.user?.name ? session.user.name.charAt(0).toUpperCase() : "U"}
-                          </span>
+                                                    <span className="text-base font-medium">
+                                                        {session.user?.name ? session.user.name.charAt(0).toUpperCase() : "U"}
+                                                    </span>
                                                 </div>
                                             </div>
                                             <div className="ml-4">
                                                 <p className="text-sm font-medium">{session.user?.name || "User"}</p>
-                                                <p className="text-xs truncate mt-0.5" 
-                                                    style={{ color: isDarkMode ? 'rgb(156, 163, 175)' : 'rgb(107, 114, 128)' }}>
+                                                <p className="text-xs truncate mt-0.5"
+                                                   style={{ color: isDarkMode ? 'rgb(156, 163, 175)' : 'rgb(107, 114, 128)' }}>
                                                     {session.user?.email || ""}
                                                 </p>
                                             </div>
                                         </div>
-                                        <div className="mt-4 space-y-2">
+                                        <div className="mt-4 space-y-2 w-full">
                                             <ThemedLink
                                                 href="/profile"
                                                 className="flex items-center w-full py-2.5 px-3 rounded-lg text-sm transition-all hover:bg-primary/10 hover:translate-x-1"
@@ -908,13 +912,13 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                                                     signOut();
                                                 }}
                                                 className="flex items-center w-full text-left py-2 px-3 rounded-lg text-sm transition-all hover:translate-x-1"
-                                                style={{ 
+                                                style={{
                                                     color: isDarkMode ? 'rgb(248, 113, 113)' : 'rgb(239, 68, 68)',
-                                                    backgroundColor: 'transparent' 
+                                                    backgroundColor: 'transparent'
                                                 }}
                                                 onMouseOver={(e) => {
-                                                    e.currentTarget.style.backgroundColor = isDarkMode 
-                                                        ? 'rgba(239, 68, 68, 0.1)' 
+                                                    e.currentTarget.style.backgroundColor = isDarkMode
+                                                        ? 'rgba(239, 68, 68, 0.1)'
                                                         : 'rgba(254, 226, 226, 1)';
                                                 }}
                                                 onMouseOut={(e) => {
@@ -929,7 +933,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                                         </div>
                                     </div>
                                 ) : (
-                                    <div className="px-4 py-3">
+                                    <div className="px-4 py-3 w-full">
                                         {renderUserSection(true)}
                                     </div>
                                 )}
