@@ -114,6 +114,9 @@ MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>
 NEXTAUTH_SECRET=your_secure_secret_key
 NEXTAUTH_URL=http://localhost:3000
 
+# Encryption Key
+ENCRYPTION_KEY=your_encryption_key
+
 # Email (optional)
 EMAIL_SERVER=smtp://user:pass@host:port
 EMAIL_FROM=noreply@yourdomain.com
