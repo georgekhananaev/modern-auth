@@ -62,7 +62,7 @@ export default function RootLayout({
         <AppProvider>
           <div className="min-h-screen flex flex-col">
             <Header />
-            <main className="flex-1 pt-8 pb-12">{children}</main>
+            <main className="flex-1 pt-4 pb-4">{children}</main>
             <Footer />
           </div>
         </AppProvider>

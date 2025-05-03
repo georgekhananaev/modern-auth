@@ -3,7 +3,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useTheme } from "@/context/theme/useTheme";
-import { ChevronUp, ChevronDown, ArrowUpRight, Check, Sun, Moon, ArrowUp } from "lucide-react";
+import { ChevronUp, ChevronDown, ArrowUpRight, Sun, Moon, ArrowUp } from "lucide-react";
+import Newsletter from "@/components/common/Newsletter";
 
 interface FooterProps {
     companyName?: string;
@@ -17,7 +18,7 @@ interface CollapsibleSectionProps {
     isDarkMode: boolean;
 }
 
-// Scroll to top component
+// Scroll to the top component
 const ScrollToTop = () => {
     const { isDarkMode } = useTheme();
     const [isVisible, setIsVisible] = useState(false);
@@ -32,13 +33,13 @@ const ScrollToTop = () => {
         }
     }, []);
 
-    // Add scroll event listener
+    // Add a scroll event listener
     useEffect(() => {
         window.addEventListener('scroll', checkScrollPosition);
         return () => window.removeEventListener('scroll', checkScrollPosition);
     }, [checkScrollPosition]);
 
-    // Scroll to top function
+    // Scroll to the top function
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
@@ -55,17 +56,17 @@ const ScrollToTop = () => {
                     : 'opacity-0 translate-y-12 pointer-events-none'
             } ${
                 isDarkMode 
-                    ? 'bg-primary/90 hover:bg-primary text-white' 
-                    : 'bg-primary/90 hover:bg-primary text-white'
+                    ? 'bg-primary/90 hover:bg-primary' 
+                    : 'bg-primary/90 hover:bg-primary'
             }`}
             aria-label="Scroll to top"
         >
-            <ArrowUp size={20} />
+            <ArrowUp size={20} color={'white'}/>
         </button>
     );
 };
 
-const CollapsibleSection = ({ title, children, isDarkMode }: CollapsibleSectionProps) => {
+const CollapsibleSection = ({ title, children }: CollapsibleSectionProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -94,13 +95,10 @@ export default function Footer({
                                        { label: "Contact", href: "/contact" },
                                        { label: "Terms", href: "/terms" },
                                        { label: "Privacy", href: "/privacy" },
-                                   ],
-                                   className = "",
+                                   ]
                                }: FooterProps) {
     const { isDarkMode, toggleTheme } = useTheme();
     const currentYear = new Date().getFullYear();
-    const [email, setEmail] = useState("");
-    const [isSubscribed, setIsSubscribed] = useState(false);
     const [mounted, setMounted] = useState(false);
     
     // Fix hydration issues by only rendering after mount
@@ -108,60 +106,15 @@ export default function Footer({
         setMounted(true);
     }, []);
 
-    const handleSubscribe = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (email) {
-            setIsSubscribed(true);
-            setEmail("");
-            // Add actual subscription logic here
-        }
-    };
-
     return (
         <>
             {/* ScrollToTop component */}
             <ScrollToTop />
-            
-            <footer className={`py-8 border-t w-full bg-card-bg ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+
+            <footer className={`py-2 w-full bg-card-bg ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
                 <div className="container mx-auto px-4">
                 {/* Newsletter section */}
-                <div className="py-12 border-b border-zinc-100 dark:border-zinc-800">
-                    <div className="max-w-3xl mx-auto text-center">
-                        <h3 className="text-xl font-bold mb-3">Join our newsletter</h3>
-                        <p className="text-muted-foreground text-sm mb-6">
-                            Get product updates, company news, and more.
-                        </p>
-                        {isSubscribed ? (
-                            <div className={`flex items-center justify-center gap-2 py-3 px-4 rounded-md ${
-                                isDarkMode ? 'bg-zinc-800' : 'bg-zinc-50'
-                            }`}>
-                                <Check size={18} className="text-green-500" />
-                                <span className="text-sm">Thanks for subscribing!</span>
-                            </div>
-                        ) : (
-                            <form onSubmit={handleSubscribe} className="flex gap-2 max-w-md mx-auto">
-                                <input
-                                    type="email"
-                                    placeholder="Enter your email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    className={`flex-1 px-4 py-2 text-sm rounded-md ${
-                                        isDarkMode
-                                            ? 'bg-zinc-800 border-zinc-700 text-white'
-                                            : 'bg-zinc-50 border-zinc-200 text-zinc-900'
-                                    } border focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent`}
-                                    required
-                                />
-                                <button
-                                    type="submit"
-                                    className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
-                                >
-                                    Subscribe
-                                </button>
-                            </form>
-                        )}
-                    </div>
-                </div>
+                <Newsletter />
 
                 {/* Main footer content */}
                 <div className="py-8">
@@ -237,7 +190,9 @@ export default function Footer({
                     <div className="hidden md:grid md:grid-cols-4 gap-8 py-4">
                         <div>
                             <div className="flex items-center mb-6">
-                                <span className="inline-block w-8 h-8 bg-primary rounded-md mr-2"></span>
+                                <div className="p-1.5 rounded-md mr-2.5 flex items-center justify-center bg-primary shadow-sm">
+                                    <span className="text-sm font-bold text-white">MA</span>
+                                </div>
                                 <span className="font-semibold">{companyName}</span>
                             </div>
                             <p className="text-sm text-muted-foreground mb-6">
@@ -344,8 +299,8 @@ export default function Footer({
                                 isDarkMode ? 'bg-zinc-800 justify-end' : 'bg-zinc-100 justify-start'
                             } group-hover:ring-1 group-hover:ring-primary`}>
                                 <div className="h-5 w-5 rounded-full flex items-center justify-center text-white shadow-md transition-all bg-primary group-hover:scale-110">
-                                    {isDarkMode 
-                                        ? <Sun size={12} className="text-amber-100" /> 
+                                    {isDarkMode
+                                        ? <Sun size={12} className="text-amber-100" />
                                         : <Moon size={12} className="text-indigo-100" />
                                     }
                                 </div>
