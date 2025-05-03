@@ -12,7 +12,7 @@
 
 ## 🔗 Demo
 
-Check out the live demo: [Modern Auth Demo](https://modern-auth-ruddy.vercel.app)
+Check out the live demo: [Modern Auth Demo](https://modern-auth-five.vercel.app/)
 
 ## ✨ Features
 
