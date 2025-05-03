@@ -494,7 +494,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
       ${isActive ? 'text-primary font-medium' : ''}
       ${isMobile ? 'hover:bg-primary/5' : level === 1 ? 'hover:bg-primary/5' : 'hover:bg-primary/5 hover:translate-x-1'}
       ${isMobile && level > 1 ? `pl-[${4 + (level-1) * 3}px]` : ''}
-      ${isMobile && level > 1 ? 'border-l-2 border-primary/10 ml-3' : ''}
+      // ${isMobile && level > 1 ? 'border-l-2 border-primary/10 ml-3' : ''}
       w-full
     `;
 
