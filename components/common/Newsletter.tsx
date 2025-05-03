@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { Check } from "lucide-react";
-import { useTheme } from "@/context/theme/useTheme";
+import React, {useState} from "react";
+import {Check} from "lucide-react";
+import {useTheme} from "@/context/theme/useTheme";
 
 interface NewsletterProps {
     title?: string;
@@ -13,13 +13,13 @@ interface NewsletterProps {
 }
 
 export default function Newsletter({
-    title = "Join our newsletter",
-    description = "Get product updates, company news, and more.",
-    buttonText = "Subscribe",
-    successMessage = "Thanks for subscribing!",
-    className = "",
-}: NewsletterProps) {
-    const { isDarkMode } = useTheme();
+                                       title = "Join our newsletter",
+                                       description = "Get product updates, company news, and more.",
+                                       buttonText = "Subscribe",
+                                       successMessage = "Thanks for subscribing!",
+                                       className = "",
+                                   }: NewsletterProps) {
+    const {isDarkMode} = useTheme();
     const [email, setEmail] = useState("");
     const [isSubscribed, setIsSubscribed] = useState(false);
 
@@ -43,7 +43,7 @@ export default function Newsletter({
                     <div className={`flex items-center justify-center gap-2 py-3 px-4 rounded-md ${
                         isDarkMode ? 'bg-zinc-800' : 'bg-zinc-50'
                     }`}>
-                        <Check size={18} className="text-green-500" />
+                        <Check size={18} className="text-green-500"/>
                         <span className="text-sm">{successMessage}</span>
                     </div>
                 ) : (

@@ -2,7 +2,9 @@
 
 ![Modern Auth Banner](public/images/auth-hero-bg.webp)
 
-**Modern Auth** is a sophisticated, production-ready authentication system built with Next.js 15, MongoDB, and TypeScript. It offers a complete authentication solution with a beautiful UI, dark/light theme support, and modern component architecture. Our goal is to create a COMMERCIAL GRADE Next.js template for all your authentication needs.
+**Modern Auth** is a sophisticated, production-ready authentication system built with Next.js 15, MongoDB, and
+TypeScript. It offers a complete authentication solution with a beautiful UI, dark/light theme support, and modern
+component architecture. Our goal is to create a COMMERCIAL GRADE Next.js template for all your authentication needs.
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue.svg)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-15.3.1-black.svg)](https://nextjs.org/)
@@ -16,9 +18,11 @@ Check out the live demo: [Modern Auth Demo](https://modern-auth-five.vercel.app/
 
 ## ✨ Features
 
-> **Demo Mode**: Enable demo mode by setting `DEMO=true` in your environment variables to disable registration and profile editing. Perfect for showcasing your app without worrying about database modifications.
+> **Demo Mode**: Enable demo mode by setting `DEMO=true` in your environment variables to disable registration and
+> profile editing. Perfect for showcasing your app without worrying about database modifications.
 
 ### 🔐 Authentication & Security
+
 - **Secure Authentication** with JWT and NextAuth.js
 - **Passwordless Login** options
 - **Social Authentication** support (GitHub, Google, Instagram)
@@ -30,6 +34,7 @@ Check out the live demo: [Modern Auth Demo](https://modern-auth-five.vercel.app/
 - **Rate Limiting** to prevent brute force attacks
 
 ### 👤 User Management
+
 - **User Profiles** with customizable fields
 - **Role-Based Authorization**
 - **Email Verification**
@@ -41,6 +46,7 @@ Check out the live demo: [Modern Auth Demo](https://modern-auth-five.vercel.app/
 - **User Invitations** system
 
 ### 🎨 UI/UX & Theming
+
 - **Fully Responsive Design** for all devices and screen sizes
 - **Dark/Light/System Theme** with seamless transitions
 - **Theming System** with CSS variables
@@ -52,6 +58,7 @@ Check out the live demo: [Modern Auth Demo](https://modern-auth-five.vercel.app/
 - **Custom Navbar Components** for better navigation
 
 ### 🛠️ Developer Experience
+
 - **TypeScript** for type safety and better DX
 - **Modern Component Architecture** with composition patterns
 - **Reusable UI Components** for rapid development
@@ -66,11 +73,14 @@ Check out the live demo: [Modern Auth Demo](https://modern-auth-five.vercel.app/
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 18.17 or later
 - MongoDB Atlas account (free tier available)
 
 ### MongoDB Atlas Setup
-1. Sign up for a free MongoDB Atlas account at [https://www.mongodb.com/cloud/atlas/register](https://www.mongodb.com/cloud/atlas/register)
+
+1. Sign up for a free MongoDB Atlas account
+   at [https://www.mongodb.com/cloud/atlas/register](https://www.mongodb.com/cloud/atlas/register)
 2. Create a new project
 3. Build a database (select the FREE tier)
 4. Create a database user with read/write permissions
@@ -81,18 +91,21 @@ Check out the live demo: [Modern Auth Demo](https://modern-auth-five.vercel.app/
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/your-username/modern-auth.git
 cd modern-auth
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Set up environment variables:
-Create a `.env.local` file in the root directory (you can copy from `.env.example`):
+   Create a `.env.local` file in the root directory (you can copy from `.env.example`):
+
 ```
 # MongoDB Connection
 MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>?retryWrites=true&w=majority
@@ -119,6 +132,7 @@ DEMO=false
 ```
 
 4. Run the development server:
+
 ```bash
 npm run dev
 ```
@@ -164,6 +178,7 @@ modern-auth/
 ## 🔑 Key Components
 
 ### 🧩 UI Components
+
 - **Button** - Versatile button component with multiple variants, sizes, and loading states
 - **Input** - Form input with validation and theming support
 - **PasswordInput** - Secure password input with strength indicator
@@ -176,6 +191,7 @@ modern-auth/
 - **Icon** - Unified icon system
 
 ### 🌐 Context Providers
+
 - **ThemeProvider** - Manages theme state with system preference detection
 - **AuthProvider** - Handles authentication state and user sessions
 - **DemoProvider** - Provides demo mode features with toast notifications
@@ -226,14 +242,16 @@ The theme system is designed to be easily customizable for your brand colors and
 Before deploying to production, make sure to check the following:
 
 #### Pre-Deployment Checks
+
 - Run linting: `npm run lint:fix`
-- Run type checking: `npm run type-check` 
+- Run type checking: `npm run type-check`
 - Test build: `npm run build`
 - Verify all dependencies are up-to-date and secure: `npm audit`
 - Configure environment variables (See Environment Variables section)
 - Configure MongoDB Atlas database
 
 #### Security Checks
+
 - Ensure security headers are configured in middleware.ts
 - Verify CORS policies are properly set up
 - Configure Content Security Policy (CSP)
@@ -244,6 +262,7 @@ Before deploying to production, make sure to check the following:
 - Use TLS/SSL for database connections
 
 #### Authentication System
+
 - Test user registration flow
 - Verify login functionality
 - Test password reset functionality
@@ -251,11 +270,12 @@ Before deploying to production, make sure to check the following:
 - Ensure session management is secure
 
 #### Deployment Process
+
 1. Configure environment variables on Vercel
-   - `MONGODB_URI` = Your MongoDB Atlas connection string
-   - `ENCRYPTION_KEY` = Securely generated random string (e.g., using `openssl rand -base64 32`)
-   - `NEXTAUTH_SECRET` = Securely generated random string (e.g., using `openssl rand -base64 32`)
-   - `NEXTAUTH_URL` = Your production URL
+    - `MONGODB_URI` = Your MongoDB Atlas connection string
+    - `ENCRYPTION_KEY` = Securely generated random string (e.g., using `openssl rand -base64 32`)
+    - `NEXTAUTH_SECRET` = Securely generated random string (e.g., using `openssl rand -base64 32`)
+    - `NEXTAUTH_URL` = Your production URL
 
 2. Deploy to Vercel using GitHub integration or CLI
    ```bash
@@ -265,6 +285,7 @@ Before deploying to production, make sure to check the following:
 3. Verify deployment by testing all core functionality
 
 #### Post-Deployment
+
 - Set up monitoring and error tracking
 - Implement analytics
 - Create a backup strategy for your database
@@ -291,6 +312,7 @@ The codebase uses TypeScript throughout with the following best practices:
 ## 🗺️ Development Roadmap
 
 ### Completed Features ✅
+
 - [x] Initial release with core authentication ⭐
 - [x] Dark/light theme support ⭐
 - [x] Advanced Navbar component with dropdowns ⭐
@@ -307,6 +329,7 @@ The codebase uses TypeScript throughout with the following best practices:
 - [x] User profile management ⭐
 
 ### Coming Soon 🚀
+
 - [ ] User Invitations (100 ⭐ required)
 - [ ] Google Sign In (120 ⭐ required)
 - [ ] GitHub Sign In (140 ⭐ required)
@@ -347,9 +370,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Modern Auth can be easily:
 
-Create a [Vercel account](https://vercel.com/signup) and link it to your GitHub repository. Vercel will automatically detect the Next.js framework and set up the deployment for you.
+Create a [Vercel account](https://vercel.com/signup) and link it to your GitHub repository. Vercel will automatically
+detect the Next.js framework and set up the deployment for you.
 
 **Note:** Make sure to configure the following environment variables in your Vercel project:
+
 - `MONGODB_URI` - Your MongoDB Atlas connection string
 - `NEXTAUTH_SECRET` - A secure random string for JWT signing
 - `ENCRYPTION_KEY` - A secure random string for encrypting sensitive data

@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef, ReactElement } from "react";
-import { usePathname } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
-import { useTheme } from "@/context/theme/useTheme";
+import {ReactElement, useEffect, useRef, useState} from "react";
+import {usePathname} from "next/navigation";
+import {signOut, useSession} from "next-auth/react";
+import {useTheme} from "@/context/theme/useTheme";
 import Button from "@/components/ui/Button";
-import Icon, { IconName } from "@/components/ui/Icon";
+import Icon, {IconName} from "@/components/ui/Icon";
 import ThemedLink from "@/components/common/ThemedLink";
-import { AnimatePresence, motion } from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
 
 // Define navigation link types with support for deep nesting
 interface NavLink {
@@ -27,10 +27,10 @@ export interface NavbarProps {
     className?: string;
 }
 
-export default function Navbar({ logoText = "Modern Auth", className = "" }: NavbarProps) {
-    const { data: session } = useSession();
+export default function Navbar({logoText = "Modern Auth", className = ""}: NavbarProps) {
+    const {data: session} = useSession();
     const pathname = usePathname();
-    const { isDarkMode, toggleTheme } = useTheme();
+    const {isDarkMode, toggleTheme} = useTheme();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
     const [openMenuPaths, setOpenMenuPaths] = useState<{ [key: string]: boolean }>({});
@@ -124,7 +124,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
         }
 
         setOpenMenuPaths(prev => {
-            const newState = { ...prev };
+            const newState = {...prev};
             const isCurrentlyOpen = Boolean(newState[path]);
 
             // If we're opening this menu, close all its siblings
@@ -447,19 +447,19 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
             opacity: 0,
             y: -5,
             scale: 0.95,
-            transition: { duration: 0.15, ease: "easeInOut" }
+            transition: {duration: 0.15, ease: "easeInOut"}
         },
         visible: {
             opacity: 1,
             y: 0,
             scale: 1,
-            transition: { duration: 0.2, ease: "easeOut" }
+            transition: {duration: 0.2, ease: "easeOut"}
         },
         exit: {
             opacity: 0,
             y: -5,
             scale: 0.95,
-            transition: { duration: 0.15, ease: "easeInOut" }
+            transition: {duration: 0.15, ease: "easeInOut"}
         }
     };
 
@@ -472,10 +472,10 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
         }
 
         if (level === 1) {
-            return { top: "100%", left: 0 };
+            return {top: "100%", left: 0};
         }
 
-        return { top: 0, left: "100%" };
+        return {top: 0, left: "100%"};
     };
 
     // Render a menu item with its submenus
@@ -493,7 +493,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
       rounded-md transition-all duration-200
       ${isActive ? 'text-primary font-medium' : ''}
       ${isMobile ? 'hover:bg-primary/5' : level === 1 ? 'hover:bg-primary/5' : 'hover:bg-primary/5 hover:translate-x-1'}
-      ${isMobile && level > 1 ? `pl-${4 + (level-1) * 3}` : ''}
+      ${isMobile && level > 1 ? `pl-${4 + (level - 1) * 3}` : ''}
       w-full
     `;
 
@@ -511,7 +511,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                         className={linkClasses}
                     >
                         <div className="flex items-center space-x-2 truncate">
-                            <Icon name={item.iconName} size={16} className="flex-shrink-0" />
+                            <Icon name={item.iconName} size={16} className="flex-shrink-0"/>
                             <span>{item.title}</span>
 
                             {/* Badge if exists */}
@@ -540,7 +540,9 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                         {isOpen && (
                             <motion.div
                                 id={getMenuId(menuPath)}
-                                ref={(el) => { menuRefs.current[menuPath] = el; }}
+                                ref={(el) => {
+                                    menuRefs.current[menuPath] = el;
+                                }}
                                 initial="hidden"
                                 animate="visible"
                                 exit="exit"
@@ -559,10 +561,10 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                                 {/* Menu header with description */}
                                 {item.description && (
                                     <div className="px-3 py-1.5 border-b"
-                                         style={{ borderColor: isDarkMode ? 'rgb(75, 85, 99)' : 'rgb(229, 231, 235)' }}>
+                                         style={{borderColor: isDarkMode ? 'rgb(75, 85, 99)' : 'rgb(229, 231, 235)'}}>
                                         <h3 className="text-xs font-medium">{item.title}</h3>
                                         <p className="text-xs mt-0.5 text-[11px]"
-                                           style={{ color: isDarkMode ? 'rgb(156, 163, 175)' : 'rgb(107, 114, 128)' }}>
+                                           style={{color: isDarkMode ? 'rgb(156, 163, 175)' : 'rgb(107, 114, 128)'}}>
                                             {item.description}
                                         </p>
                                     </div>
@@ -589,7 +591,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                 onClick={handleNavigation}
             >
                 <div className="flex items-center space-x-2 truncate">
-                    <Icon name={item.iconName} size={16} className="flex-shrink-0" />
+                    <Icon name={item.iconName} size={16} className="flex-shrink-0"/>
                     <span>{item.title}</span>
 
                     {/* Badge if exists */}
@@ -627,7 +629,8 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                     >
                         <div className="flex items-center">
                             <div className="relative flex h-9 w-9 shrink-0 overflow-hidden rounded-full shadow-sm">
-                                <div className="flex h-full w-full items-center justify-center rounded-full bg-primary text-sm font-medium text-white">
+                                <div
+                                    className="flex h-full w-full items-center justify-center rounded-full bg-primary text-sm font-medium text-white">
                                     {session.user?.name ? session.user.name.charAt(0).toUpperCase() : "U"}
                                 </div>
                             </div>
@@ -646,7 +649,9 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                         {isProfileMenuOpen && (
                             <motion.div
                                 id={`menu-${profileMenuPath}`}
-                                ref={(el) => { menuRefs.current[profileMenuPath] = el; }}
+                                ref={(el) => {
+                                    menuRefs.current[profileMenuPath] = el;
+                                }}
                                 initial="hidden"
                                 animate="visible"
                                 exit="exit"
@@ -661,10 +666,10 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                                 }}
                             >
                                 <div className="py-2 px-3 border-b"
-                                     style={{ borderColor: isDarkMode ? 'rgb(75, 85, 99)' : 'rgb(229, 231, 235)' }}>
+                                     style={{borderColor: isDarkMode ? 'rgb(75, 85, 99)' : 'rgb(229, 231, 235)'}}>
                                     <p className="text-xs font-medium">{session.user?.name || "User"}</p>
                                     <p className="text-xs truncate mt-0.5 text-[11px]"
-                                       style={{ color: isDarkMode ? 'rgb(156, 163, 175)' : 'rgb(107, 114, 128)' }}>
+                                       style={{color: isDarkMode ? 'rgb(156, 163, 175)' : 'rgb(107, 114, 128)'}}>
                                         {session.user?.email || ""}
                                     </p>
                                 </div>
@@ -674,7 +679,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                                         className="flex w-full items-center px-3 py-2 text-sm rounded-md transition-all hover:translate-x-1 hover:bg-primary/5"
                                         onClick={handleNavigation}
                                     >
-                                        <Icon name="User" size={16} className="mr-2" />
+                                        <Icon name="User" size={16} className="mr-2"/>
                                         Profile
                                     </ThemedLink>
                                     <ThemedLink
@@ -682,7 +687,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                                         className="flex w-full items-center px-3 py-2 text-sm rounded-md transition-all opacity-50 pointer-events-none"
                                         onClick={(e) => e.preventDefault()}
                                     >
-                                        <Icon name="Settings" size={16} className="mr-2" />
+                                        <Icon name="Settings" size={16} className="mr-2"/>
                                         Settings
                                     </ThemedLink>
                                     <button
@@ -706,7 +711,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                                         role="menuitem"
                                         aria-label="Sign out of your account"
                                     >
-                                        <Icon name="LogOut" size={16} className="mr-2" />
+                                        <Icon name="LogOut" size={16} className="mr-2"/>
                                         Sign Out
                                     </button>
                                 </div>
@@ -754,12 +759,14 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
         return (
             <button
                 onClick={toggleTheme}
-                className="p-2 rounded-full transition-all dark:hover:bg-gray-700 hover:bg-gray-100"
+                className={`p-2 rounded-full transition-all ${
+                    isDarkMode ? "hover:bg-gray-700" : "hover:bg-gray-200"
+                }`}
                 aria-label={isDarkMode ? "Switch to light theme" : "Switch to dark theme"}
             >
                 {isDarkMode
-                    ? <Icon name="Sun" size={20} className="text-amber-400" />
-                    : <Icon name="Moon" size={20} className="text-indigo-400" />}
+                    ? <Icon name="Sun" size={20} className="text-amber-400"/>
+                    : <Icon name="Moon" size={20} className="text-indigo-400"/>}
             </button>
         );
     };
@@ -785,7 +792,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                         >
                             <div
                                 className="p-1.5 rounded-lg mr-2.5 flex items-center justify-center"
-                                style={{ backgroundColor: 'var(--color-primary)', boxShadow: 'var(--shadow-sm)' }}
+                                style={{backgroundColor: 'var(--color-primary)', boxShadow: 'var(--shadow-sm)'}}
                             >
                                 <span className="text-sm font-bold text-white">MA</span>
                             </div>
@@ -802,7 +809,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
 
                         {/* Right side items */}
                         <div className="flex items-center pl-6 ml-6 border-l"
-                             style={{ borderColor: isDarkMode ? 'rgba(75, 85, 99, 1)' : 'rgba(229, 231, 235, 1)' }}>
+                             style={{borderColor: isDarkMode ? 'rgba(75, 85, 99, 1)' : 'rgba(229, 231, 235, 1)'}}>
                             {renderThemeToggle()}
                             {renderUserSection()}
                         </div>
@@ -815,13 +822,13 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                         <button
                             onClick={toggleMobileMenu}
                             className="inline-flex items-center justify-center p-2 rounded-lg transition-all hover:bg-primary/10"
-                            style={{ backgroundColor: isDarkMode ? 'rgba(31, 41, 55, 1)' : 'rgba(243, 244, 246, 1)' }}
+                            style={{backgroundColor: isDarkMode ? 'rgba(31, 41, 55, 1)' : 'rgba(243, 244, 246, 1)'}}
                             aria-expanded={isMobileMenuOpen}
                             aria-controls="mobile-menu"
                             aria-haspopup="menu"
                             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
                         >
-                            <Icon name={isMobileMenuOpen ? "X" : "Menu"} size={20} />
+                            <Icon name={isMobileMenuOpen ? "X" : "Menu"} size={20}/>
                         </button>
                     </div>
                 </div>
@@ -832,10 +839,10 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                 {isMobileMenuOpen && (
                     <motion.div
                         id="mobile-menu"
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.2 }}
+                        initial={{opacity: 0, height: 0}}
+                        animate={{opacity: 1, height: "auto"}}
+                        exit={{opacity: 0, height: 0}}
+                        transition={{duration: 0.2}}
                         className="lg:hidden overflow-y-auto max-h-[calc(100vh-4rem)] border-b shadow-lg w-full"
                         style={{
                             backgroundColor: isDarkMode ? 'rgb(17, 24, 39)' : 'white',
@@ -843,11 +850,12 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                             borderColor: isDarkMode ? 'rgba(75, 85, 99, 1)' : 'rgba(229, 231, 235, 1)'
                         }}
                     >
-                        <div className="container mx-auto px-4 py-4 space-y-3 w-full" role="menu" aria-label="Mobile navigation menu">
+                        <div className="container mx-auto px-4 py-4 space-y-3 w-full" role="menu"
+                             aria-label="Mobile navigation menu">
                             {/* Search bar for mobile */}
                             <div className="relative w-full">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <Icon name="Search" size={16} className="text-gray-400" />
+                                    <Icon name="Search" size={16} className="text-gray-400"/>
                                 </div>
                                 <input
                                     type="search"
@@ -870,12 +878,13 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
 
                             {/* Mobile user section */}
                             <div className="mt-6 pt-6 pb-4 border-t w-full"
-                                 style={{ borderColor: isDarkMode ? 'rgba(75, 85, 99, 1)' : 'rgba(229, 231, 235, 1)' }}>
+                                 style={{borderColor: isDarkMode ? 'rgba(75, 85, 99, 1)' : 'rgba(229, 231, 235, 1)'}}>
                                 {session ? (
                                     <div className="px-4 py-2 w-full">
                                         <div className="flex items-center w-full">
                                             <div className="flex-shrink-0">
-                                                <div className="flex h-12 w-12 items-center justify-center rounded-full text-white shadow-md bg-primary">
+                                                <div
+                                                    className="flex h-12 w-12 items-center justify-center rounded-full text-white shadow-md bg-primary">
                                                     <span className="text-base font-medium">
                                                         {session.user?.name ? session.user.name.charAt(0).toUpperCase() : "U"}
                                                     </span>
@@ -884,7 +893,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                                             <div className="ml-4">
                                                 <p className="text-sm font-medium">{session.user?.name || "User"}</p>
                                                 <p className="text-xs truncate mt-0.5"
-                                                   style={{ color: isDarkMode ? 'rgb(156, 163, 175)' : 'rgb(107, 114, 128)' }}>
+                                                   style={{color: isDarkMode ? 'rgb(156, 163, 175)' : 'rgb(107, 114, 128)'}}>
                                                     {session.user?.email || ""}
                                                 </p>
                                             </div>
@@ -895,7 +904,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                                                 className="flex items-center w-full py-2.5 px-3 rounded-lg text-sm transition-all hover:bg-primary/10 hover:translate-x-1"
                                                 onClick={handleNavigation}
                                             >
-                                                <Icon name="User" size={16} className="mr-2" />
+                                                <Icon name="User" size={16} className="mr-2"/>
                                                 Profile
                                             </ThemedLink>
                                             <ThemedLink
@@ -903,7 +912,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                                                 className="flex items-center w-full py-2.5 px-3 rounded-lg text-sm transition-all hover:bg-primary/10 hover:translate-x-1"
                                                 onClick={handleNavigation}
                                             >
-                                                <Icon name="Settings" size={16} className="mr-2" />
+                                                <Icon name="Settings" size={16} className="mr-2"/>
                                                 Settings
                                             </ThemedLink>
                                             <button
@@ -927,7 +936,7 @@ export default function Navbar({ logoText = "Modern Auth", className = "" }: Nav
                                                 role="menuitem"
                                                 aria-label="Sign out of your account"
                                             >
-                                                <Icon name="LogOut" size={16} className="mr-2" />
+                                                <Icon name="LogOut" size={16} className="mr-2"/>
                                                 Sign Out
                                             </button>
                                         </div>

@@ -2,11 +2,11 @@
 
 // Theme script component for handling theme before hydration
 export function ThemeScript() {
-  return (
-    <script
-      id="theme-script"
-      dangerouslySetInnerHTML={{
-        __html: `
+    return (
+        <script
+            id="theme-script"
+            dangerouslySetInnerHTML={{
+                __html: `
           (function() {
             try {
               // Try to get theme from localStorage
@@ -44,7 +44,7 @@ export function ThemeScript() {
             }
           })();
         `,
-      }}
-    />
-  );
+            }}
+        />
+    );
 }
