@@ -1,50 +1,360 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useTheme } from "@/context/theme/useTheme";
+import { ChevronUp, ChevronDown, ArrowUpRight, Check, Sun, Moon, ArrowUp } from "lucide-react";
 
 interface FooterProps {
-  companyName?: string;
-  links?: Array<{ label: string; href: string }>;
-  className?: string;
+    companyName?: string;
+    links?: Array<{ label: string; href: string }>;
+    className?: string;
 }
 
-export default function Footer({
-  companyName = "Modern Auth",
-  links = [
-    { label: "Contact", href: "/contact" },
-    { label: "Features", href: "/features" },
-    { label: "Terms", href: "/terms" },
-    { label: "Privacy", href: "/privacy" },
-  ],
-  className = "",
-}: FooterProps) {
-  const { isDarkMode } = useTheme();
-  const currentYear = new Date().getFullYear();
+interface CollapsibleSectionProps {
+    title: string;
+    children: React.ReactNode;
+    isDarkMode: boolean;
+}
 
-  return (
-    <footer className={`py-8 border-t w-full bg-card-bg ${
-      isDarkMode ? 'border-gray-700' : 'border-gray-200'
-    } mt-auto ${className}`}>
-      <div className="container">
-        <div className="flex flex-col md:flex-row md:justify-between items-center gap-4">
-          <p className="text-sm text-muted mb-2 md:mb-0">
-            © {currentYear} {companyName} by George Khananaev. All rights reserved.
-          </p>
-          <div className="flex flex-wrap justify-center gap-6">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm text-muted hover:text-primary transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
+// Scroll to top component
+const ScrollToTop = () => {
+    const { isDarkMode } = useTheme();
+    const [isVisible, setIsVisible] = useState(false);
+
+    // Function to check scroll position and update visibility
+    const checkScrollPosition = useCallback(() => {
+        const scrollY = window.scrollY;
+        if (scrollY > 500) {
+            setIsVisible(true);
+        } else {
+            setIsVisible(false);
+        }
+    }, []);
+
+    // Add scroll event listener
+    useEffect(() => {
+        window.addEventListener('scroll', checkScrollPosition);
+        return () => window.removeEventListener('scroll', checkScrollPosition);
+    }, [checkScrollPosition]);
+
+    // Scroll to top function
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+
+    return (
+        <button
+            onClick={scrollToTop}
+            className={`fixed bottom-8 right-8 p-3 rounded-full shadow-lg transition-all duration-300 z-50 flex items-center justify-center ${
+                isVisible 
+                    ? 'opacity-100 translate-y-0' 
+                    : 'opacity-0 translate-y-12 pointer-events-none'
+            } ${
+                isDarkMode 
+                    ? 'bg-primary/90 hover:bg-primary text-white' 
+                    : 'bg-primary/90 hover:bg-primary text-white'
+            }`}
+            aria-label="Scroll to top"
+        >
+            <ArrowUp size={20} />
+        </button>
+    );
+};
+
+const CollapsibleSection = ({ title, children, isDarkMode }: CollapsibleSectionProps) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <div className="border-b border-zinc-100 dark:border-zinc-800 py-4">
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="flex w-full items-center justify-between text-left"
+            >
+                <span className="font-medium">{title}</span>
+                {isOpen ? (
+                    <ChevronUp size={18} className="text-muted-foreground" />
+                ) : (
+                    <ChevronDown size={18} className="text-muted-foreground" />
+                )}
+            </button>
+            <div className={`mt-2 ${isOpen ? "block" : "hidden"} md:block`}>
+                {children}
+            </div>
         </div>
-      </div>
-    </footer>
-  );
+    );
+};
+
+export default function Footer({
+                                   companyName = "Modern Auth",
+                                   links = [
+                                       { label: "Contact", href: "/contact" },
+                                       { label: "Terms", href: "/terms" },
+                                       { label: "Privacy", href: "/privacy" },
+                                   ],
+                                   className = "",
+                               }: FooterProps) {
+    const { isDarkMode, toggleTheme } = useTheme();
+    const currentYear = new Date().getFullYear();
+    const [email, setEmail] = useState("");
+    const [isSubscribed, setIsSubscribed] = useState(false);
+    const [mounted, setMounted] = useState(false);
+    
+    // Fix hydration issues by only rendering after mount
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const handleSubscribe = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (email) {
+            setIsSubscribed(true);
+            setEmail("");
+            // Add actual subscription logic here
+        }
+    };
+
+    return (
+        <>
+            {/* ScrollToTop component */}
+            <ScrollToTop />
+            
+            <footer className={`py-8 border-t w-full bg-card-bg ${isDarkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+                <div className="container mx-auto px-4">
+                {/* Newsletter section */}
+                <div className="py-12 border-b border-zinc-100 dark:border-zinc-800">
+                    <div className="max-w-3xl mx-auto text-center">
+                        <h3 className="text-xl font-bold mb-3">Join our newsletter</h3>
+                        <p className="text-muted-foreground text-sm mb-6">
+                            Get product updates, company news, and more.
+                        </p>
+                        {isSubscribed ? (
+                            <div className={`flex items-center justify-center gap-2 py-3 px-4 rounded-md ${
+                                isDarkMode ? 'bg-zinc-800' : 'bg-zinc-50'
+                            }`}>
+                                <Check size={18} className="text-green-500" />
+                                <span className="text-sm">Thanks for subscribing!</span>
+                            </div>
+                        ) : (
+                            <form onSubmit={handleSubscribe} className="flex gap-2 max-w-md mx-auto">
+                                <input
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className={`flex-1 px-4 py-2 text-sm rounded-md ${
+                                        isDarkMode
+                                            ? 'bg-zinc-800 border-zinc-700 text-white'
+                                            : 'bg-zinc-50 border-zinc-200 text-zinc-900'
+                                    } border focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent`}
+                                    required
+                                />
+                                <button
+                                    type="submit"
+                                    className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                                >
+                                    Subscribe
+                                </button>
+                            </form>
+                        )}
+                    </div>
+                </div>
+
+                {/* Main footer content */}
+                <div className="py-8">
+                    <div className="md:hidden">
+                        {/* Mobile accordion view */}
+                        <CollapsibleSection title="Features" isDarkMode={isDarkMode}>
+                            <ul className="space-y-2 pl-2">
+                                <li>
+                                    <Link href="/features" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                        Overview
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/custom-components" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                        Components
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/security" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                        Security
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/user-management" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                        User Management
+                                    </Link>
+                                </li>
+                            </ul>
+                        </CollapsibleSection>
+
+                        <CollapsibleSection title="Resources" isDarkMode={isDarkMode}>
+                            <ul className="space-y-2 pl-2">
+                                <li>
+                                    <Link href="/localization" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                        Internationalization
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/rtl-support" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                        RTL Support
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/social-login" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                        Social Login
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/theming" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                        Theming
+                                    </Link>
+                                </li>
+                            </ul>
+                        </CollapsibleSection>
+
+                        <CollapsibleSection title="Legal" isDarkMode={isDarkMode}>
+                            <ul className="space-y-2 pl-2">
+                                {links.map((link) => (
+                                    <li key={link.href}>
+                                        <Link
+                                            href={link.href}
+                                            className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                                        >
+                                            {link.label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </CollapsibleSection>
+                    </div>
+
+                    {/* Desktop view */}
+                    <div className="hidden md:grid md:grid-cols-4 gap-8 py-4">
+                        <div>
+                            <div className="flex items-center mb-6">
+                                <span className="inline-block w-8 h-8 bg-primary rounded-md mr-2"></span>
+                                <span className="font-semibold">{companyName}</span>
+                            </div>
+                            <p className="text-sm text-muted-foreground mb-6">
+                                Building the future of authentication for modern applications.
+                            </p>
+                            <div className="space-y-2">
+                                <a href="https://github.com/georgekhananaev/modern-auth" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors">
+                                    GitHub
+                                    <ArrowUpRight size={14} />
+                                </a>
+                                <a href="https://www.linkedin.com/in/georgekhananaev/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors">
+                                    LinkedIn
+                                    <ArrowUpRight size={14} />
+                                </a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 className="font-medium mb-4">Features</h4>
+                            <ul className="space-y-2">
+                                <li>
+                                    <Link href="/features" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                        Overview
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/custom-components" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                        Components
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/security" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                        Security
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/user-management" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                        User Management
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 className="font-medium mb-4">Resources</h4>
+                            <ul className="space-y-2">
+                                <li>
+                                    <Link href="/localization" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                        Internationalization
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/rtl-support" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                        RTL Support
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/social-login" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                        Social Login
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/theming" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                                        Theming
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 className="font-medium mb-4">Legal</h4>
+                            <ul className="space-y-2">
+                                {links.map((link) => (
+                                    <li key={link.href}>
+                                        <Link
+                                            href={link.href}
+                                            className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                                        >
+                                            {link.label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Copyright bar */}
+                <div className={`py-6 border-t ${
+                    isDarkMode ? 'border-zinc-800' : 'border-zinc-100'
+                } flex flex-col md:flex-row justify-between items-center`}>
+                    <p className="text-xs text-muted-foreground mb-4 md:mb-0">
+                        © {currentYear} {companyName} by George Khananaev. All rights reserved.
+                    </p>
+
+                    {mounted && (
+                        <button
+                            onClick={toggleTheme}
+                            className="flex gap-2 items-center group"
+                            aria-label={isDarkMode ? "Switch to light theme" : "Switch to dark theme"}
+                        >
+                            <span className="text-xs text-muted-foreground group-hover:text-primary transition-colors">{isDarkMode ? 'Dark' : 'Light'} Mode</span>
+                            <div className={`w-16 h-8 rounded-full p-1.5 flex items-center transition-all ${
+                                isDarkMode ? 'bg-zinc-800 justify-end' : 'bg-zinc-100 justify-start'
+                            } group-hover:ring-1 group-hover:ring-primary`}>
+                                <div className="h-5 w-5 rounded-full flex items-center justify-center text-white shadow-md transition-all bg-primary group-hover:scale-110">
+                                    {isDarkMode 
+                                        ? <Sun size={12} className="text-amber-100" /> 
+                                        : <Moon size={12} className="text-indigo-100" />
+                                    }
+                                </div>
+                            </div>
+                        </button>
+                    )}
+                </div>
+            </div>
+        </footer>
+        </>
+    );
 }
