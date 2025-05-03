@@ -253,6 +253,7 @@ Before deploying to production, make sure to check the following:
 #### Deployment Process
 1. Configure environment variables on Vercel
    - `MONGODB_URI` = Your MongoDB Atlas connection string
+   - `ENCRYPTION_KEY` = Securely generated random string (e.g., using `openssl rand -base64 32`)
    - `NEXTAUTH_SECRET` = Securely generated random string (e.g., using `openssl rand -base64 32`)
    - `NEXTAUTH_URL` = Your production URL
 
@@ -342,34 +343,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🚀 Deployment
 
-### Deploying to Vercel (Free)
+### Deploying to Vercel/Netlify (Free)
 
-Modern Auth can be easily deployed to Vercel with a few simple steps:
+Modern Auth can be easily:
 
-1. Create a [Vercel account](https://vercel.com/signup) for free
-2. Install the Vercel CLI (optional):
-   ```bash
-   npm install -g vercel
-   ```
-3. Deploy directly from the repository:
-   - Fork this repository to your GitHub account
-   - Connect your GitHub account to Vercel
-   - Import your repository in the Vercel dashboard
-   - Add your environment variables in the Vercel project settings
-   - Deploy with a single click
-
-   OR
-
-4. Deploy from your local machine:
-   ```bash
-   vercel
-   ```
-
-5. Your application will be deployed with a unique URL and can be assigned a custom domain in your Vercel dashboard.
+Create a [Vercel account](https://vercel.com/signup) and link it to your GitHub repository. Vercel will automatically detect the Next.js framework and set up the deployment for you.
 
 **Note:** Make sure to configure the following environment variables in your Vercel project:
 - `MONGODB_URI` - Your MongoDB Atlas connection string
 - `NEXTAUTH_SECRET` - A secure random string for JWT signing
+- `ENCRYPTION_KEY` - A secure random string for encrypting sensitive data
 - `NEXTAUTH_URL` - Your deployment URL (Vercel will set this automatically for production)
 - `DEMO` - Set to "true" if you want to enable demo mode (disables registration and profile editing)
 - Any other environment variables your application needs
@@ -378,7 +361,7 @@ Modern Auth can be easily deployed to Vercel with a few simple steps:
 
 - For production deployments, make sure to set `NEXTAUTH_URL` to your production domain
 - Configure your MongoDB Atlas database's Network Access to allow connections from your Vercel deployment IPs
-- Consider adding authentication providers like Google or GitHub for enhanced user experience
+- Consider adding authentication providers like Google or GitHub for enhanced user experience (Coming Soon...)
 
 ## 🙏 Acknowledgements
 
