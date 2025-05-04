@@ -142,6 +142,43 @@ npm run dev
 
 5. Open [http://localhost:3000](http://localhost:3000) to see the application.
 
+## 🚀 Performance & Design
+
+Modern Auth delivers excellent performance and beautiful design across all devices and themes:
+
+### 📊 PageSpeed Insights
+<table>
+  <tr>
+    <td><strong>Desktop</strong></td>
+    <td><strong>Mobile</strong></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/PageSpeed-Insights/desktop.png" alt="PageSpeed Insights Desktop Score" width="400"></td>
+    <td><img src="screenshots/PageSpeed-Insights/mobile.png" alt="PageSpeed Insights Mobile Score" width="400"></td>
+  </tr>
+</table>
+
+### 🔐 Authentication UI
+
+<table>
+  <tr>
+    <td><strong>Desktop (Dark)</strong></td>
+    <td><strong>Desktop (Light)</strong></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/Auth/desktop.png" alt="Auth Desktop Dark Theme" width="400"></td>
+    <td><img src="screenshots/Auth/desktop-light.png" alt="Auth Desktop Light Theme" width="400"></td>
+  </tr>
+  <tr>
+    <td><strong>Mobile (Dark)</strong></td>
+    <td><strong>Mobile (Light)</strong></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/Auth/mobile.png" alt="Auth Mobile Dark Theme" width="200"></td>
+    <td><img src="screenshots/Auth/mobile-light.png" alt="Auth Mobile Light Theme" width="200"></td>
+  </tr>
+</table>
+
 ## 📂 Project Structure
 
 ```
