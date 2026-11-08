@@ -4,7 +4,7 @@ import {forgotPasswordSchema, loginSchema, registerSchema, resetPasswordSchema} 
 /**
  * Validate form data against schema with typed results and errors
  */
-export async function validateFormData<T extends z.ZodType<unknown, z.ZodTypeDef>>(
+export async function validateFormData<T extends z.ZodType>(
     schema: T,
     data: unknown
 ): Promise<{
@@ -20,7 +20,7 @@ export async function validateFormData<T extends z.ZodType<unknown, z.ZodTypeDef
             // Format errors for form display
             const formattedErrors: Record<string, string> = {};
 
-            error.errors.forEach((err) => {
+            error.issues.forEach((err) => {
                 if (err.path.length > 0) {
                     const fieldName = err.path.join(".");
                     formattedErrors[fieldName] = err.message;
